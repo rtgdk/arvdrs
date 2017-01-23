@@ -1,0 +1,198 @@
+{% extends 'app/base.html' %}
+{%load staticfiles%}
+{% block block1 %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<style>
+        input[type=search] {
+            background: none;
+            font-weight: bold;
+            border-color: #2e2e2e;
+            border-style: solid;
+            border-width: 2px 2px 2px 2px;
+            outline: none;
+            padding: 10px 20px 10px 20px;
+            width: 250px;
+        }
+      /*Css to target the dropdownbox*/
+        ul.ui-autocomplete {
+            color: black !important;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+        }
+    </style>
+<div class="row" style="background-color: white ; color:black">
+<div class="col-lg-2">
+</div>
+<div class="col-lg-8">
+			{% if 'primaryadmin' in request.session %}
+			<div style="background:#ffffff;padding:5px;color:#000000;">
+				<h3 class ="text-center"> Search </h3>
+				<hr>
+				<form class="form-horizontal" role="form" method = "post" action="/app/">
+					{% csrf_token %}
+					<div class="form-group row">
+					  <label for="inputType" class="col-md-1 control-label">Name</label>
+					  <div class="col-md-3">
+						  <input type="text" class="form-control" id="name"  name="name">
+					  </div>
+					  <label for="inputType" class="col-md-1 control-label" >Mob</label>
+					  <div class="col-md-3">
+						  <input type="text" class="form-control" id="mob"  name="mob">
+					  </div>
+					  <label for="inputType" class="col-md-1 control-label">Key</label>
+					  <div class="col-md-3">
+						  <input type="text" class="form-control" id="key"  name="key">
+					  </div>
+					</div>
+					<div class="form-group text-center ">
+			        <button class="btn btn-success">Search</button>
+			    </div>
+				</form>
+			</div>
+				{% if patient %}
+			<div style="background:#ffffff;padding:5px;color:#000000;margin-top:20px;">
+			<h4 class="text-center text-info">Search for {% if searchname %} Name : {{searchname}} ||{% endif %} {% if searchmob %} Mob: {{searchmob}} || {% endif %}    {% if searchkey %} Key: {{searchkey}}{% endif %} </h4>
+			<h3 class ="text-center"> Patients </h3>
+			<hr>
+				
+				<table class="table">
+				<thead>
+				<th>Name</th>
+				<th>Mob</th>
+				<th>Age</th>
+				<th>Key</th>
+				<th>Clinic</th>
+				<th>Reg. Date</th>
+				</tr>
+				 </thead>
+				{% for i in patient %}
+				
+				
+				<td><a style="color:blue" href="/app/patient/{{ i.key }}/">{{ i.name }}</a></td>
+				<td>{{i.mob}}</td>
+				<td>{{i.age}}</td>
+				<td>{{i.key}}</td>
+				<td>{{i.clinic}}</td>
+				<td>{{i.reg_date}}</td>
+				</tr>
+				
+				{% endfor %}
+				</table>
+				{% else %}
+				<h5 > Search to view patients</h5>
+				{% endif %}
+			</div>
+		
+
+
+
+
+
+			
+			{% elif 'operator' in request.session %}
+			<div style="background:#ffffff;padding:5px;color:#000000;">
+				<h3 class ="text-center"> Search </h3>
+				<hr>
+				<form class="form-horizontal" role="form" method = "post" action="/app/">
+					{% csrf_token %}
+					<div class="form-group row">
+					  <label for="inputType" class="col-md-1 control-label">Name</label>
+					  <div class="col-md-3">
+						  <input type="text" class="form-control" id="name"  name="name">
+					  </div>
+					  <label for="inputType" class="col-md-1 control-label" >Mob</label>
+					  <div class="col-md-3">
+						  <input type="text" class="form-control" id="mob"  name="mob">
+					  </div>
+					  <label for="inputType" class="col-md-1 control-label">Key</label>
+					  <div class="col-md-3">
+						  <input type="text" class="form-control" id="key"  name="key">
+					  </div>
+					</div>
+					<div class="form-group text-center ">
+			        <button class="btn btn-success">Search</button>
+			    </div>
+				</form>
+			</div>
+				{% if patient %}
+			<div style="background:#ffffff;padding:5px;color:#000000;margin-top:20px;">
+			<h4 class="text-center text-info">Search for {% if searchname %} Name : {{searchname}} ||{% endif %} {% if searchmob %} Mob: {{searchmob}} || {% endif %}    {% if searchkey %} Key: {{searchkey}}{% endif %} </h4>
+			<h3 class ="text-center"> Patients </h3>
+			<hr>
+				
+				<table class="table">
+				<thead>
+				<th>Name</th>
+				<th>Mob</th>
+				<th>Age</th>
+				<th>Key</th>
+				<th>Clinic</th>
+				<th>Reg. Date</th>
+				</tr>
+				 </thead>
+				{% for i in patient %}
+				
+				
+				<td><a style="color:blue" href="/app/patient/{{ i.key }}/">{{ i.name }}</a></td>
+				<td>{{i.mob}}</td>
+				<td>{{i.age}}</td>
+				<td>{{i.key}}</td>
+				<td>{{i.clinic}}</td>
+				<td>{{i.reg_date}}</td>
+				</tr>
+				
+				{% endfor %}
+				</table>
+				{% else %}
+				<h5 > Search to view patients</h5>
+				{% endif %}
+				<div class="text-right"><a href="/app/sendmsg/" class= "btn btn-info">Send Msg</a>
+				<h5> No of msg Sent = {{ sms.no }}</h5></div>
+			</div>
+	
+
+
+
+
+
+
+
+
+
+			{% else %}
+			<div class="text-center">
+				<h3 style="color: #fed136;">Welcome to Hamidia Hospital Bhopal</h3>
+				
+			</div>
+
+			<!-- <img src="/static/app/img/home_page.png" height="420" width="700"></img> -->
+			</div>
+		</div>
+</div>
+{% endif %}
+<script src="{% static 'app/js/jquery.min.js' %}"></script>
+
+  <script src="{% static 'app/js/jquery-ui.js' %}"></script>
+<script>
+$(document).ready(function () {
+    $("#name").autocomplete({
+        source: "/app/search2/",
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    $("#mob").autocomplete({
+        source: "/app/search3/",
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    $("#key").autocomplete({
+        source: "/app/search4/",
+    });
+});
+</script>
+
+{% endblock %}

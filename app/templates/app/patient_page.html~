@@ -1,0 +1,138 @@
+{% extends 'app/base.html' %}
+{%load staticfiles%}
+{% block block1 %}
+
+<div class="row" style="background-color: white ; color:black">
+
+<h2 class="text-danger">{{ error }} </h2> 
+<h2 class="text-center">Patient #{{patient.key}}</h2>
+<hr>
+<h2 class="text-right"><button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#edit">Edit</button></h2>
+<div class="text-left">
+<div class="col-lg-6">
+
+<h4 class="text-lowercase" > Name :{{ patient.name }}</h4>
+<h4 > Mob No. : {{ patient.mob }}</h4>
+<h4 > Age : {{ patient.age }}</h4>
+<h4 > Sex : {{ patient.sex }}</h4>
+<h4 > Address : {{ patient.address }}</h4>
+<h4 > Email : {{ patient.email }}</h4>
+<h4 > Clinic : {{ patient.clinic }}</h4>
+<h4 > Bite : {{ patient.bite }}</h4>
+<h4 >Reg. Date : {{ patient.reg_date }}</h4>
+<h4 > Remarks : {{ patient.remarks }}</h4>
+<hr>
+<h4 > Day1 : {{ patient.day1 }} --- {{ patient.day1_status }}</h4>
+<h4 > Day2 : {{ patient.day2 }} --- {{ patient.day2_status }}</h4>
+<h4 > Day3 : {{ patient.day3 }} --- {{ patient.day3_status }}</h4>
+<h4 > Day4 : {{ patient.day4 }} --- {{ patient.day4_status }}</h4>
+
+{% if check <  5 %}
+<a href="/app/patient/{{ patient.key }}/{{ patientatten.status }}/mark/" class="text-info btn btn-info btn-lg">Mark Attendance for Day {{ patientatten.status }}</a>
+{% endif %}
+<div class="text-right">
+<a href="/app/patient/{{ patient.key }}/delete/" class="text-info btn btn-danger btn-lg" onclick="return confirm('Are you sure you want to Delete the record of {{ patient.name }}?');">Delete</a>
+</div>
+<div id="edit" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">{{ patient.name}}</h4>
+      </div>
+      <div class="modal-body">
+        <form class = "form-horizontal" method = "post" action="/app/user/{{patient.id}}/">
+				{% csrf_token %}
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Name </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="name" value="{{ patient.name }}" name = "name">
+					</div>
+				    </div>
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Mob No. </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="mob" value="{{ patient.mob }}" name = "mob">
+					</div>
+				    </div>
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Age </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="age" value="{{ patient.age }}" name = "age">
+					</div>
+				    </div>
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Sex </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="sex" value="{{ patient.sex }}" name = "sex">
+					</div>
+				    </div>
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Address </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="address" value="{{ patient.address }}" name = "address">
+					</div>
+				    </div>
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Email </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="email" value="{{ patient.email }}" name = "email">
+					</div>
+				    </div>
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Clinic </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="clinic" value="{{ patient.clinic }}" name = "clinic">
+					</div>
+				    </div>
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Location of Bite </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="bite" value="{{ patient.bite }}" name = "bite">
+					</div>
+				    </div>
+				</div>
+				
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Remarks </label>
+					<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="remarks" value="{{ patient.remarks }}" name = "remarks">
+					</div>
+				    </div>
+				</div>
+				<div class="form-group text-center ">
+			        <button class="btn btn-success">Edit</button>
+			    </div>
+	
+</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+{% endblock %}

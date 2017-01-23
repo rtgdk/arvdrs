@@ -1,0 +1,133 @@
+{% extends 'app/base.html' %}
+{%load staticfiles%}
+{% block block1 %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<style>
+        input[type=search] {
+            background: none;
+            font-weight: bold;
+            border-color: #2e2e2e;
+            border-style: solid;
+            border-width: 2px 2px 2px 2px;
+            outline: none;
+            padding: 10px 20px 10px 20px;
+            width: 250px;
+        }
+      /*Css to target the dropdownbox*/
+        ul.ui-autocomplete {
+            color: black !important;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+        }
+    </style>
+
+				
+
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-left">
+		<form id= "SingleForm" class="form-inline" method = "post" action = "/app/report/">
+		{% csrf_token %}
+		<h3 class="text-center"> Search</h3>
+		<h4 class="text-center text-info"> Leave clinic field blank for searching for all clinics</h4> 
+		<h4 class="text-center text-info"> range for Registeration date</h4> 
+		<hr>
+			<div class="form-group row">
+			<label for="name">Clinic</label>
+			<input name="clinic" class="form-control" id="clinic">
+		  
+			<label for="from">From</label>
+			<input type="text" class="form-control" id="demo1_2" placeholder="date" name = "demo1_2" required>
+		 
+			<label for="to">To</label>
+			<input type="text" class="form-control" id="demo2_2" placeholder="date" name = "demo2_2" required>
+		 
+			
+		  </div>
+		  <hr>
+		 <div class="form-group text-center ">
+			        <button class="btn btn-success">Submit</button>
+			    </div>
+		</form>
+</div>
+</div>
+</div>
+
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-center">
+		<hr>
+
+
+{% if patient %}
+
+
+<h4 class="text-center">{{fdate}}------{{tdate}}</h4>
+				<table class="table" id="team-list">
+				<thead>
+				<th>Clinic</th>
+				<th>Name</th>
+				<th style="text-align:center;">Day1</th>
+				<th style="text-align:center;">Day2</th>
+				<th style="text-align:center;">Day3</th>
+				<th style="text-align:center;">Day4</th>
+				</tr>
+				
+				</thead>
+				<tbody>
+				{% for i in patient %}
+				<tr>
+				<td>{{i.clinic}}</td>
+				<td>{{i.name}}</td>
+				<td>{{i.real_day1}}</td>
+				<td>{{i.real_day2}}</td>
+				<td>{{i.real_day3}}</td>
+				<td>{{i.real_day4}}</td>
+				</tr>
+				{% endfor %}
+				
+				</tbody>
+				</table>
+				<a href="media/{{link}}" class=" btn btn-info btn-lng">Download this report</a>
+{% endif %}
+
+</div>
+</div>
+</div>
+
+
+
+
+<script src="{% static 'app/js/jquery.min.js' %}"></script>
+<script src="{% static 'app/dcalendar.picker.js' %}"></script>
+
+
+<script>
+$('#demo2_2').dcalendarpicker({
+format:'yyyy-mm-dd'
+});
+
+</script>
+<script>
+$('#demo1_2').dcalendarpicker({
+format:'yyyy-mm-dd'
+});
+
+</script>
+
+  <script src="{% static 'app/js/jquery-ui.js' %}"></script>
+<script>
+$(document).ready(function () {
+    $("#clinic").autocomplete({
+        source: "/app/search/",
+    });
+});
+</script>
+
+
+
+{% endblock %}

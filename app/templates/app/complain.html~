@@ -1,0 +1,10 @@
+{% extends 'app/base.html' %}
+{%load staticfiles%}
+{% block block1 %}
+<div class="row" style="background-color: white ; color:black">
+<div class="col-lg-3">
+</div>
+<div class="col-lg-6">
+<h4>Your Complain has been succesfully submitted. We will resolve the issue within 7 working days.
+<a href="/app/update/">Click to go back home</a></h4>
+{% endblock %}

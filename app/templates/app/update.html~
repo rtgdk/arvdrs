@@ -1,0 +1,591 @@
+{% extends 'app/base.html' %}
+{%load staticfiles%}
+{% block block1 %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<style>
+body{
+    counter-reset: Serial;           /* Set the Serial counter to 0 */
+}
+
+#team-list
+{
+    border-collapse: separate;
+}
+
+#team-list tr td:first-child:before
+{
+  counter-increment: Serial;      /* Increment the Serial counter */
+  content:  counter(Serial); /* Display the counter */
+}
+
+input[type=search] {
+            background: none;
+            font-weight: bold;
+            border-color: #2e2e2e;
+            border-style: solid;
+            border-width: 2px 2px 2px 2px;
+            outline: none;
+            padding: 10px 20px 10px 20px;
+            width: 250px;
+        }
+      /*Css to target the dropdownbox*/
+        ul.ui-autocomplete {
+            color: black !important;
+            -moz-border-radius: 15px;
+            border-radius: 15px;
+        }
+</style>
+{% if 'primaryadmin' in request.session %}
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-left">
+		<form id= "SingleForm" class="form-inline" method = "post" action = "/app/update/">
+		{% csrf_token %}
+		<h3 class="text-center"> Single day</h3>
+		  <div class="form-group">
+			<label for="name">Name</label>
+			<input name="name1" class="form-control" id="name1">
+		  </div>
+		  <div class="form-group">
+			<label for="date">Date</label>
+			<input type="text" class="form-control" id="demo1_1" placeholder="date" name = "demo1_1" required>
+		  </div>
+		  <button type="submit" class="btn btn-default" name="form1">Submit</button>
+		</form>
+				 <form id= "MultiForm" class="form-inline" method = "post" action = "/app/update/">
+				 {% csrf_token %}
+				 <h3 class="text-center"> Multi day</h3>
+		  <div class="form-group">
+			<label for="name">Name</label>
+			<input name="name2" class="form-control" id="name2">
+		  </div>
+		  <div class="form-group">
+			<label for="pwd">From</label>
+			<input type="text" class="form-control" id="demo1_2" placeholder="date" name = "demo1_2" required>
+		  </div>
+		  <div class="form-group">
+			<label for="pwd">To</label>
+			<input type="text" class="form-control" id="demo2_2" placeholder="date" name = "demo2_2" required>
+		  </div>
+		  <button type="submit" class="btn btn-default" name="form2">Submit</button>
+		</form>
+ 
+  
+</div>
+</div>
+</div>
+
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-center">
+		<hr>
+{% ifequal i 1 %}
+
+{% ifequal s 1 %}
+<h4 class="text-center">{{date}}</h4>
+<table class="table" id="team-list">
+				<thead>
+				<tr>
+				<th style="text-align:center;">S.no</th>
+				<th style="text-align:center;">Establishment Name</th>
+				<th style="text-align:center;">Yellow</th>
+				<th style="text-align:center;">Red</th>
+				<th style="text-align:center;">White</th>
+				<th style="text-align:center;">Blue</th>
+				<th style="text-align:center;">Update</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for i in waste %}
+				<tr>
+				<td></td>
+				<td>{{i.name}}</td>
+				<td>{{i.waste1}}</td>
+				<td>{{i.waste2}}</td>
+				<td>{{i.waste3}}</td>
+				<td>{{i.waste4}}</td>
+				<td><button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#myModal{{i.id}}"><span class="glyphicon glyphicon-edit"></span></button></td>
+				<div id="myModal{{i.id}}" class="modal fade" role="dialog">
+  				<div class="modal-dialog">
+
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">{{ i.date }}</h4>
+					  </div>
+					
+				  <div class="modal-body">
+					<form id="myform" class = "form-horizontal" method = "post"  >
+				{% csrf_token %}
+				        
+				     
+				        <input type="hidden" class="form-control" id="date" name = "date" value={{date}} readonly>
+				       
+				
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2" >Establishment Name </label>
+						<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="name" name = "name" value={{i.name}} readonly>
+				        </div>
+				    </div>
+					
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Yellow</label>
+						<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="bag_1"  name = "bag_1" value={{i.waste1}} >
+				        </div>
+				    </div>
+					
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Red</label>
+						<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="bag_2"  name = "bag_2" value={{i.waste2}}>
+				        </div>
+				    </div>
+					
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">White</label>
+						<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="bag_3"  name = "bag_3" value={{i.waste3}}>
+				        </div>
+				    </div>
+					
+				</div>
+				<div class = "form-group">
+					<div class="col-sm-12">
+					<label class="control-label col-sm-2">Blue</label>
+						<div class="col-sm-10"> 
+				        <input type="text" class="form-control" id="bag_4"  name = "bag_4" value={{i.waste4}}>
+				        </div>
+				    </div>
+					
+				</div>
+				<div class="form-group text-center">
+			        <button type="submit" style="background-color:#10452f;" class="btn btn-success" name="form3">Update</button>
+			    </div>
+			</form>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				  </div>
+				</div>
+
+			  	</div>
+				</div>
+				</tr>
+				{% endfor %}
+				<tr>
+				<td>Total</td>
+				<td></td>
+				<td>{{total.a1}}</td>
+				<td>{{total.a2}}</td>
+				<td>{{total.a3}}</td>
+				<td>{{total.a4}}</td>
+				<td></td>
+				</tr>
+				</tbody>
+			</table>
+			<a href="media/{{link}}">Download this report</a>
+{% endifequal %}
+{% ifequal s 0 %}
+<h4 class="text-center">{{fdate}}------{{tdate}}</h4>
+
+				<table class="table" id="team-list">
+				<thead>
+				<tr>
+				<th>S.no</th>
+				<th>Date</th>
+				<th style="text-align:center;">Establishment Name</th>
+				<th style="text-align:center;">Yellow</th>
+				<th style="text-align:center;">Red</th>
+				<th style="text-align:center;">White</th>
+				<th style="text-align:center;">Blue</th>
+				</tr>
+				
+				</thead>
+				<tbody>
+				{% for i in waste %}
+				<tr>
+				<td></td>
+				<td>{{i.date}}</td>
+				<td>{{i.name}}</td>
+				<td>{{i.waste1}}</td>
+				<td>{{i.waste2}}</td>
+				<td>{{i.waste3}}</td>
+				<td>{{i.waste4}}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+				<td>Total</td>
+				<td></td>
+				<td></td>
+				<td>{{total.a1}}</td>
+				<td>{{total.a2}}</td>
+				<td>{{total.a3}}</td>
+				<td>{{total.a4}}</td>
+				</tr>
+				</tbody>
+				</table>
+				<a href="media/{{link}}">Download this report</a>
+{% endifequal %}
+{% endifequal %}
+</div>
+</div>
+</div>
+{% elif 'secondaryadmin' in request.session %}
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-left">
+		<form id= "SingleForm" class="form-inline" method = "post" action = "/app/update/">
+		{% csrf_token %}
+		<h3 class="text-center"> Single day</h3>
+		  <div class="form-group">
+			<label for="name">Name</label>
+			<input name="name1" class="form-control" id="name1">
+		  </div>
+		  <div class="form-group">
+			<label for="date">Date</label>
+			<input type="text" class="form-control" id="demo1_1" placeholder="date" name = "demo1_1" required>
+		  </div>
+		  <button type="submit" class="btn btn-default" name="form1">Submit</button>
+		</form>
+				 <form id= "MultiForm" class="form-inline" method = "post" action = "/app/update/">
+				 {% csrf_token %}
+				 <h3 class="text-center"> Multi day</h3>
+		  <div class="form-group">
+			<label for="name">Name</label>
+			<input name="name2" class="form-control" id="name2">
+		  </div>
+		  <div class="form-group">
+			<label for="pwd">From</label>
+			<input type="text" class="form-control" id="demo1_2" placeholder="date" name = "demo1_2" required>
+		  </div>
+		  <div class="form-group">
+			<label for="pwd">To</label>
+			<input type="text" class="form-control" id="demo2_2" placeholder="date" name = "demo2_2" required>
+		  </div>
+		  <button type="submit" class="btn btn-default" name="form2">Submit</button>
+		</form>
+ 
+  
+</div>
+</div>
+</div>
+
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-center">
+		<hr>
+{% ifequal i 1 %}
+
+{% ifequal s 1 %}
+<h4 class="text-center">{{date}}</h4>
+<table class="table" id="team-list">
+				<thead>
+				<tr>
+				<th style="text-align:center;">S.no</th>
+				<th style="text-align:center;">Establishment Name</th>
+				<th style="text-align:center;">Yellow</th>
+				<th style="text-align:center;">Red</th>
+				<th style="text-align:center;">White</th>
+				<th style="text-align:center;">Blue</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for i in waste %}
+				<tr>
+				<td></td>
+				<td>{{i.name}}</td>
+				<td>{{i.waste1}}</td>
+				<td>{{i.waste2}}</td>
+				<td>{{i.waste3}}</td>
+				<td>{{i.waste4}}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+				<td>Total</td>
+				<td></td>
+				<td>{{total.a1}}</td>
+				<td>{{total.a2}}</td>
+				<td>{{total.a3}}</td>
+				<td>{{total.a4}}</td>
+				<td></td>
+				</tr>
+				</tbody>
+			</table>
+			<a href="media/{{link}}">Download this report</a>
+{% endifequal %}
+{% ifequal s 0 %}
+<h4 class="text-center">{{fdate}}------{{tdate}}</h4>
+
+				<table class="table" id="team-list">
+				<thead>
+				<tr>
+				<th>S.no</th>
+				<th>Date</th>
+				<th style="text-align:center;">Establishment Name</th>
+				<th style="text-align:center;">Yellow</th>
+				<th style="text-align:center;">Red</th>
+				<th style="text-align:center;">White</th>
+				<th style="text-align:center;">Blue</th>
+				</tr>
+				
+				</thead>
+				<tbody>
+				{% for i in waste %}
+				<tr>
+				<td></td>
+				<td>{{i.date}}</td>
+				<td>{{i.name}}</td>
+				<td>{{i.waste1}}</td>
+				<td>{{i.waste2}}</td>
+				<td>{{i.waste3}}</td>
+				<td>{{i.waste4}}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+				<td>Total</td>
+				<td></td>
+				<td></td>
+				<td>{{total.a1}}</td>
+				<td>{{total.a2}}</td>
+				<td>{{total.a3}}</td>
+				<td>{{total.a4}}</td>
+				</tr>
+				</tbody>
+				</table>
+				<a href="media/{{link}}">Download this report</a>
+{% endifequal %}
+{% endifequal %}
+</div>
+</div>
+</div>
+{% elif 'user' in request.session %}
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-left">
+		<form id= "SingleForm" class="form-inline" method = "post" action = "/app/update/">
+		{% csrf_token %}
+		<h3 class="text-center"> Single day</h3>
+		  <div class="form-group">
+			<label for="date">Date</label>
+			<input type="text" class="form-control" id="demo1_1" placeholder="date" name = "demo1_1" required>
+		  </div>
+		  <button type="submit" class="btn btn-default" name="form4">Submit</button>
+		</form>
+				 <form id= "MultiForm" class="form-inline" method = "post" action = "/app/update/">
+				 {% csrf_token %}
+				 <h3 class="text-center"> Multi day</h3>
+		  <div class="form-group">
+			<label for="pwd">From</label>
+			<input type="text" class="form-control" id="demo1_2" placeholder="date" name = "demo1_2" required>
+		  </div>
+		  <div class="form-group">
+			<label for="pwd">To</label>
+			<input type="text" class="form-control" id="demo2_2" placeholder="date" name = "demo2_2" required>
+		  </div>
+		  <button type="submit" class="btn btn-default" name="form5">Submit</button>
+		</form>
+ 
+  
+</div>
+</div>
+</div>
+
+<div class="row" style="background-color: white ; color:black">
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-center">
+		<hr>
+{% ifequal i 1 %}
+
+{% ifequal s 1 %}
+<h4 class="text-center">{{date}}</h4>
+<table class="table" id="team-list">
+				<thead>
+				<tr>
+				<th style="text-align:center;">S.no</th>
+				<th style="text-align:center;">Establishment Name</th>
+				<th style="text-align:center;">Yellow</th>
+				<th style="text-align:center;">Red</th>
+				<th style="text-align:center;">White</th>
+				<th style="text-align:center;">Blue</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for i in waste %}
+				<tr>
+				
+				<td></td>
+				<td>{{i.name}}</td>
+				<td>{{i.waste1}}</td>
+				<td>{{i.waste2}}</td>
+				<td>{{i.waste3}}</td>
+				<td>{{i.waste4}}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+				<td>Total</td>
+				<td></td>
+				<td>{{total.a1}}</td>
+				<td>{{total.a2}}</td>
+				<td>{{total.a3}}</td>
+				<td>{{total.a4}}</td>
+				<td></td>
+				</tr>
+				</tbody>
+				
+			</table>
+			<a href="media/{{link}}">Download this report</a>
+{% endifequal %}
+{% ifequal s 0 %}
+<h4 class="text-center">{{fdate}}------{{tdate}}</h4>
+				<table class="table" id="team">
+				<thead>
+				<tr>
+				<th style="text-align:center;">S.no</th>
+				<th style="text-align:center;">Establishment Name</th>
+				<th style="text-align:center;">Yellow</th>
+				<th style="text-align:center;">Red</th>
+				<th style="text-align:center;">White</th>
+				<th style="text-align:center;">Blue</th>
+				</tr>
+				</thead>
+				<tbody>
+				{% for l,k in total2.items %}
+				<tr>
+				<td></td>
+				<td>{{l}}</td>
+				<td>{{k.b1}}</td>
+				<td>{{k.b2}}</td>
+				<td>{{k.b3}}</td>
+				<td>{{k.b4}}</td>
+				</tr>
+				{% endfor %}
+				<tr>
+				<td>Total</td>
+				<td></td>
+				<td>{{total.a1}}</td>
+				<td>{{total.a2}}</td>
+				<td>{{total.a3}}</td>
+				<td>{{total.a4}}</td>
+				</tr>
+				</tbody>
+				</table>
+				<a href="media/{{link}}">Download this report</a>
+{% endifequal %}
+{% endifequal %}
+</div>
+</div>
+</div>
+<br/>
+<div class="row" >
+	<div class="col-lg-3">
+	</div>
+	<div class="col-lg-12">
+		<div class="text-right">
+<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Grievance</button>
+	</div>
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog" >
+
+  <div class="modal-dialog" style="background-color: white ; color:black">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Grievance Form</h4>
+      </div>
+      <form  method = "post" action = "/app/complain/">
+      {% csrf_token %}
+		<div class="form-group">
+			<label for="email">Subject</label>
+			<input type="text" id="subject"  name = "subject" >
+		</div>
+		<div class="form-group">
+				<label for="pwd">Complain</label>
+				<textarea type="text" class="form-control" rows="5" id="complain" placeholder="Type your message here" name = "complain" ></textarea>
+				
+		</div>
+		
+			  <button type="submit" class="btn btn-default" style="background-color:green">Submit</button>
+	</form>
+		</div>
+
+  </div>
+</div>
+
+
+</div>
+</div>
+
+
+
+
+
+{% endif %}
+<script src="{% static 'app/js/jquery.min.js' %}"></script>
+<script src="{% static 'app/dcalendar.picker.js' %}"></script>
+
+<script>
+$('#demo1_1').dcalendarpicker({
+format:'yyyy-mm-dd'
+});
+
+</script>
+<script>
+$('#demo2_2').dcalendarpicker({
+format:'yyyy-mm-dd'
+});
+
+</script>
+<script>
+$('#demo1_2').dcalendarpicker({
+format:'yyyy-mm-dd'
+});
+
+</script>
+
+  <script src="{% static 'app/js/jquery-ui.js' %}"></script>
+<script>
+$(document).ready(function () {
+    $("#name1").autocomplete({
+        source: "/app/search/",
+    });
+});
+</script>
+<script>
+$(document).ready(function () {
+    $("#name2").autocomplete({
+        source: "/app/search/",
+    });
+});
+</script>
+<!--<script>
+$(document).ready(function () {
+    $("#name1").autocomplete({
+        source: "/app/search2/",
+    });
+});
+</script>-->
+
+{% endblock %}
