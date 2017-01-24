@@ -28,7 +28,7 @@
 <h4 > Day4 : {{ patient.day4 }} --- {{ patient.day4_status }}</h4>
 
 {% if check <  5 %}
-<a href="/app/patient/{{ patient.key }}/{{ patientatten.status }}/mark/" class="text-info btn btn-info btn-lg">Mark Attendance for Day {{ patientatten.status }}</a>
+<a href="/app/patient/{{ patient.key }}/{{ patient.status }}/mark/" class="text-info btn btn-info btn-lg">Mark Attendance for Day {{ patient.status }}</a>
 {% endif %}
 <div class="text-right">
 <a href="/app/patient/{{ patient.key }}/delete/" class="text-info btn btn-danger btn-lg" onclick="return confirm('Are you sure you want to Delete the record of {{ patient.name }}?');">Delete</a>
@@ -103,10 +103,12 @@
 				</div>
 				<div class = "form-group">
 					<div class="col-sm-12">
-					<label class="control-label col-sm-2">Location of Bite </label>
-					<div class="col-sm-10"> 
-				        <input type="text" class="form-control" id="bite" value="{{ patient.bite }}" name = "bite">
-					</div>
+					<label class="control-label col-sm-2">Location of bite </label>
+					<select class="form-control" name = "bite" id="bite" value={{ patient.bite }}>
+					        <option value="Ankle">Ankle</option>
+					        <option value="Wrist">Wrist</option>
+					        <option value= "Knee">Knee</option>
+					        </select>
 				    </div>
 				</div>
 				

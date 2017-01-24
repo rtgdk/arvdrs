@@ -34,7 +34,11 @@ def smsincr(count):
 	sms.save()
 def index(request):
 	context_dict={}
-	sms = SMSModel.objects.get(name ="ARVDRS")
+	try:
+		sms = SMSModel.objects.get(name ="ARVDRS")
+	except:
+		sms=""
+		pass
 	context_dict['sms']=sms
 	if request.method == 'POST':
 		name=request.POST['name']
