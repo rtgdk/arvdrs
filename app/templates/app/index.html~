@@ -20,12 +20,7 @@
             border-radius: 15px;
         }
     </style>
-<div class="row" style="background-color: white ; color:black">
-<div class="col-lg-2">
-</div>
-<div class="col-lg-8">
-			{% if 'primaryadmin' in request.session %}
-			<div style="background:#ffffff;padding:5px;color:#000000;">
+<div style="background:#ffffff;padding:5px;color:#000000;">
 				<h3 class ="text-center"> Search </h3>
 				<hr>
 				<form class="form-horizontal" role="form" method = "post" action="/app/">
@@ -81,13 +76,29 @@
 				{% else %}
 				<h5 > Search to view patients</h5>
 				{% endif %}
+				<div class="text-right"><a href="/app/sendmsg/" class= "btn btn-info">Send Msg</a>
+				<h5> No of msg Sent = {{ sms.no }}</h5></div>
 			</div>
-		
+	
 
 
 
 
 
+
+
+
+
+			{% else %}
+			<div class="text-center">
+				<h3 style="color: #fed136;">Welcome to Hamidia Hospital Bhopal</h3>
+				
+			</div>
+
+			<!-- <img src="/static/app/img/home_page.png" height="420" width="700"></img> -->
+			</div>
+		</div>
+</div>
 			
 			{% elif 'operator' in request.session %}
 			<div style="background:#ffffff;padding:5px;color:#000000;">

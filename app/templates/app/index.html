@@ -81,14 +81,17 @@
 				{% else %}
 				<h5 > Search to view patients</h5>
 				{% endif %}
+				<div class="text-right"><a href="/app/sendmsg/" class= "btn btn-info">Send Msg</a>
+				<h5> No of msg Sent = {{ sms.no }}</h5></div>
 			</div>
-		
+	
 
 
 
 
 
-			
+
+
 			{% elif 'operator' in request.session %}
 			<div style="background:#ffffff;padding:5px;color:#000000;">
 				<h3 class ="text-center"> Search </h3>

@@ -58,9 +58,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     
-                <li>
-                        <a href="/app/about/" >About</a>
-                    </li>    
+                  
 			{% if 'primaryadmin' in request.session %}
 			<li>
 			<a href="/app/admin/add_clinic/">Add Clinic</a>

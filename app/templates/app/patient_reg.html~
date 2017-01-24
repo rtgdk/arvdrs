@@ -122,9 +122,9 @@ input[type=search] {
 					<label class="control-label col-sm-2">Location of Bite </label>
 						<div class="col-sm-10"> 
 					        <select class="form-control" name = "bite" id="bite">
-					        <option value="Male">Ankle</option>
-					        <option value="Female">Wrist</option>
-					        <option value= "Other">Knee</option>
+					        <option value="Ankle">Ankle</option>
+					        <option value="Wrist">Wrist</option>
+					        <option value= "Knee">Knee</option>
 					        </select>
 					        </div>
 				    </div>

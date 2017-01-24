@@ -9,6 +9,7 @@ url(r'^patient/(?P<patient_id>\w+)/$',views.patient,name="patient view"),
 url(r'^patient/(?P<patient_id>\w+)/(?P<status>\w+)/mark/$',views.patient_mark_attendance,name="patient mark attendance"),
 url(r'^patient/(?P<patient_id>\w+)/delete/$',views.patient_delete,name="patient delete"),
 url(r'^admin/add_clinic/$', views.admin_add_clinic, name ="admin add clinic"),
+url(r'^admin/add_operator/$', views.admin_add_operator, name ="admin add operator"),
 url(r'^report/$', views.report_generator, name ="report generator"),
 url(r'^operator/patient_reg/$', views.op_patient_register, name ="patient register"),
 url(r'^search/$', views.autocompleteModel , name = 'search'), #clinic
