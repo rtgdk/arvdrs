@@ -1,4 +1,0 @@
-
-from time import time
-print (hex(int(time()*10000000))[8:])
-print(time())
